@@ -19,6 +19,7 @@ export default class App extends Component {
 
     componentDidMount() {
         this.performSearch();
+        document.title = 'Flickr React Gallery App';
     }
 
     performSearch = (query = 'waterfall') =>{
