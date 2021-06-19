@@ -45,11 +45,13 @@ export default class App extends Component {
     render() {
         return(
             <div className="container">
-                <SearchForm onSearch={this.performSearch} />
+                {/* <SearchForm onSearch={this.performSearch} /> */}
                 <Router>
-                    <Nav />
+                <Nav />
                     <Switch>
-                        <Route exact path="/" />
+                        <Route exact path="/" render={() => <Redirect to="/search" />} />
+                        <Route exact path="/search" render={() => <SearchForm onSearch={this.performSearch} />} />
+                        <Route path="/search:query" component={ImgList} />
                         <Route component={ErrorPage} />
                     </Switch>
                 </Router>
