@@ -2,8 +2,7 @@ import React from 'react';
 import Img from './Img';
 import NotFound from './NotFound';
 
-const ImgList = props => { 
-  
+const ImgList = (props) => { 
   const results = props.data;
   let imgs;
   if(results.length > 0) {
@@ -18,7 +17,7 @@ const ImgList = props => {
 
   return(
     <div className="photo-container">
-        <h2>Results</h2>
+        <h2>{props.title}</h2>
         <ul>
             {imgs}
         </ul>
