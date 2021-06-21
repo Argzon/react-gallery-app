@@ -20,4 +20,4 @@ In order to use this script you need to set up config.js file which takes the AP
 
 ## Live Preview
 
-[React Gallery App](https://gallery-search.netlify)
+[React Gallery App](https://gallery-search.netlify.app/)
