@@ -17,3 +17,7 @@ In order to use this script you need to set up config.js file which takes the AP
 - The API key must be stored in a file named `config.js` which is located in `/src` folder
 - In `config.js`, the API key must be a string stored in a variable named `apiKey`
 - The last step is to `export default apiKey` and you are good to go
+
+## Live Preview
+
+[React Gallery App](https://gallery-search.netlify)
