@@ -1,62 +1,32 @@
-import React, { Component }from 'react';
-import axios from 'axios';
-import apiKey from './config';
-import { 
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Redirect
+import React from 'react';
+
+import {
+  BrowserRouter,
+  Route,
+  Switch
 } from 'react-router-dom';
 
-// Components import
-import ImgList from './components/ImgList';
+// Components
+import Container from './components/Container';
 import Nav from './components/Nav';
-import SearchForm from './components/SearchForm';
-import NotFound from './components/NotFound';
 import ErrorPage from './components/ErrorPage';
 
-export default class App extends Component {
-    state = {
-        images: [],
-        loading: true,
-        query: this.props.query
-    }
+const App = () => (
+  
+  <BrowserRouter>
+    <div className="container">
+      <Route component={Nav} />
+      <Switch>
+        <Route exact path="/" component={Container} />
+        <Route exact path="/search" component={Container} />
+        <Route path="/search/:query" component={Container} />
+        <Route path="/nature" render={ () => {return <Container query={'nature'} /> }} />
+        <Route path="/dogs" render={ () => {return <Container query={'dogs'} /> }} />
+        <Route path="/flowers" render={ () => {return <Container query={'flowers'} /> }} />
+        <Route component={ErrorPage} />
+      </Switch> 
+    </div>
+  </BrowserRouter>
+)
 
-    componentDidMount() {
-        this.performSearch();
-        document.title = 'Flickr React Gallery App';
-    }
-
-    performSearch = (query = 'waterfall') =>{
-        axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&text=${query}&per_page=24&format=json&nojsoncallback=1`)
-            .then(res => {
-                const images = res.data.photos.photo;
-                this.setState({
-                    images,
-                    query,
-                    loading: false
-                });
-            })
-            .catch(error => {
-                console.log('Error fetching and parsing data', error);
-            }); 
-    }
-
-    render() {
-        return(
-            <div className="container">
-                {/* <SearchForm onSearch={this.performSearch} /> */}
-                <Router>
-                <Nav />
-                    <Switch>
-                        <Route exact path="/" render={() => <Redirect to="/search" />} />
-                        <Route exact path="/search" render={() => <SearchForm onSearch={this.performSearch} />} />
-                        <Route path="/search:query" component={ImgList} />
-                        <Route component={ErrorPage} />
-                    </Switch>
-                </Router>
-                { (this.state.loading) ? <NotFound /> : <ImgList title={this.state.query} data={this.state.images} /> }
-            </div>
-        );
-    }
-}
+export default App;
